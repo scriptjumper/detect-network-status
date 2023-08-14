@@ -1,24 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import { useNetwork } from "./hooks/useNetwork";
+
+import "./App.css";
 
 function App() {
+  let [isOnline, connection] = useNetwork();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <span className={isOnline ? "online" : "offline"}>
+        Status: {isOnline ? "Online" : "Offline"}
+      </span>
+      <span>Down Link: {connection.downlink}</span>
+      <span>Effective Type: {connection.effectiveType}</span>
+      <span>Latency: {connection.rtt}</span>
+      <span>Data Saver?: {connection.saveData ? "Yes" : "No"}</span>
+    </main>
   );
 }
 
